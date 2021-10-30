@@ -1,0 +1,75 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - WebApp", "01 - WebApp", "{FEAE8FCF-B382-441A-8495-6EEB4DBA354F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Dominio", "02 - Dominio", "{F5D48259-A82E-479C-AE24-7FFC0FAFBCA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Infraestrutura", "03 - Infraestrutura", "{54A4E3D2-5FB1-4AAE-97CB-9BF0DC075720}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Api", "04 - Api", "{4A1D369D-8721-4630-9AB9-6B11154E98B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nascimento.Software.Livraria.Api", "Nascimento.Software.Livraria.Api\Nascimento.Software.Livraria.Api.csproj", "{F572D092-1790-4EA7-8452-2D18EDE5B3C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nascimento.Software.Livraria.Dominio", "Nascimento.Software.Livraria.Dominio\Nascimento.Software.Livraria.Dominio.csproj", "{38B3D27C-5B80-46BB-96E2-E3EC559BA6BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nascimento.Software.Livraria.Infraestrutura", "Nascimento.Software.Livraria.Infraestrutura\Nascimento.Software.Livraria.Infraestrutura.csproj", "{E761AD7D-8FDE-4E33-B5AF-556CEA8DA91C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nascimento.Software.Livraria_WebApp", "Nascimento.Software.Livraria_WebApp\Nascimento.Software.Livraria_WebApp.csproj", "{E66ABA9C-181A-4884-94A0-A06DDFE8BB57}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Business", "05 - Business", "{5A777670-CEF1-4814-AF3E-4352446FE913}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nascimento.Software.Livraria.Business", "Nascimento.Software.Livraria.Business\Nascimento.Software.Livraria.Business.csproj", "{BA0811F7-108D-4545-8806-06DCF5C0FEC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - Servidor", "06 - Servidor", "{CD6E8AA8-CFE0-43C7-A53E-CEC97A276562}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nascimento.Software.Livraria.Servidor", "Nascimento.Software.Livraria.Servidor\Nascimento.Software.Livraria.Servidor.csproj", "{D3AEA099-744B-47A5-A450-07BB5646F7E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F572D092-1790-4EA7-8452-2D18EDE5B3C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F572D092-1790-4EA7-8452-2D18EDE5B3C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F572D092-1790-4EA7-8452-2D18EDE5B3C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F572D092-1790-4EA7-8452-2D18EDE5B3C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38B3D27C-5B80-46BB-96E2-E3EC559BA6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B3D27C-5B80-46BB-96E2-E3EC559BA6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B3D27C-5B80-46BB-96E2-E3EC559BA6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B3D27C-5B80-46BB-96E2-E3EC559BA6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E761AD7D-8FDE-4E33-B5AF-556CEA8DA91C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E761AD7D-8FDE-4E33-B5AF-556CEA8DA91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E761AD7D-8FDE-4E33-B5AF-556CEA8DA91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E761AD7D-8FDE-4E33-B5AF-556CEA8DA91C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E66ABA9C-181A-4884-94A0-A06DDFE8BB57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E66ABA9C-181A-4884-94A0-A06DDFE8BB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E66ABA9C-181A-4884-94A0-A06DDFE8BB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E66ABA9C-181A-4884-94A0-A06DDFE8BB57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA0811F7-108D-4545-8806-06DCF5C0FEC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA0811F7-108D-4545-8806-06DCF5C0FEC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA0811F7-108D-4545-8806-06DCF5C0FEC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA0811F7-108D-4545-8806-06DCF5C0FEC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3AEA099-744B-47A5-A450-07BB5646F7E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3AEA099-744B-47A5-A450-07BB5646F7E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3AEA099-744B-47A5-A450-07BB5646F7E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3AEA099-744B-47A5-A450-07BB5646F7E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F572D092-1790-4EA7-8452-2D18EDE5B3C6} = {4A1D369D-8721-4630-9AB9-6B11154E98B1}
+		{38B3D27C-5B80-46BB-96E2-E3EC559BA6BF} = {F5D48259-A82E-479C-AE24-7FFC0FAFBCA9}
+		{E761AD7D-8FDE-4E33-B5AF-556CEA8DA91C} = {54A4E3D2-5FB1-4AAE-97CB-9BF0DC075720}
+		{E66ABA9C-181A-4884-94A0-A06DDFE8BB57} = {FEAE8FCF-B382-441A-8495-6EEB4DBA354F}
+		{BA0811F7-108D-4545-8806-06DCF5C0FEC5} = {5A777670-CEF1-4814-AF3E-4352446FE913}
+		{D3AEA099-744B-47A5-A450-07BB5646F7E2} = {CD6E8AA8-CFE0-43C7-A53E-CEC97A276562}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EB4CDF1-1561-4134-8A5C-503CA3DEC610}
+	EndGlobalSection
+EndGlobal
