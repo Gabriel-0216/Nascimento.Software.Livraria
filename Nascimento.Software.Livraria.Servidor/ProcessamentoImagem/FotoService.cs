@@ -17,7 +17,7 @@ namespace Nascimento.Software.Livraria.Servidor.ProcessamentoImagem
                 return string.Empty;
             }
             string uniqueFileName = string.Empty;
-            string uploadFolder = @"C:\Users\GABRI\source\repos\Nascimento.Software.LivrariaV2\Nascimento.Software.Livraria.Servidor\images\";
+            string uploadFolder = @"C:\Users\GABRI\source\repos\Nascimento.Software.LivrariaV2\Nascimento.Software.Livraria_WebApp\wwwroot\images\";
             uniqueFileName = Guid.NewGuid().ToString() + "_" + foto.FileName;
             string filePath = Path.Combine(uploadFolder, uniqueFileName);
             using (var fileStream = new FileStream(filePath, FileMode.Create))

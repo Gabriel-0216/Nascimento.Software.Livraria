@@ -1,0 +1,17 @@
+﻿.grid-container {
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    background-color: aliceblue;
+    padding: 10px;
+    
+}
+
+.grid-item {
+    background-color: azure;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 5px;
+    font-size: 30px;
+    text-align: center;
+    max-width: 303.22px;
+
+}

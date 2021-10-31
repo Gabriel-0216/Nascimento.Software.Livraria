@@ -4,68 +4,29 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Grid.css" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoriaId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FotoId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AutorId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QtdePaginas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagemUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.categorias.FirstOrDefault(p => p.Id == item.CategoriaId).Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FotoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.autores.FirstOrDefault(p=> p.Id == item.AutorId).Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QtdePaginas)
-            </td>
-            <td>
-                <img src="@item.ImagemUrl" />
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+</head>
+
+<div style="min-height: 900px">
+
+    <div class="grid-container">
+        @foreach (var item in Model)
+        {
+
+            <div class="grid-item" style="background-color: azure; font-family: Helvetica">
+                <a style="text-decoration: none; color: black" asp-action="Details" asp-route-id="@item.Id">
+                    <!--Nome inicial--><h6 class="item_header"> @Html.DisplayFor(modelItem => item.Nome)</h6>
+                    <!--Foto--><img src="~/images/@item.ImagemUrl" class="box" height="150" width="260" asp-append-version="true" />
+                    <h6 class="item_footer"> @Html.DisplayFor(modelItem => item.autores.FirstOrDefault(p => p.Id == item.AutorId).Nome)</h6>
+
+                </a>
+
+
+            </div>
+
+        }
+
+    </div>
+</div>

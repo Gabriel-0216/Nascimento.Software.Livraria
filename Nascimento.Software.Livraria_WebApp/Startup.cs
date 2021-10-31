@@ -12,6 +12,7 @@ using Nascimento.Software.Livraria_WebApp.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Nascimento.Software.Livraria_WebApp
@@ -34,13 +35,37 @@ namespace Nascimento.Software.Livraria_WebApp
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //   .AddEntityFrameworkStores<ApplicationDbContext>()
+            //   .AddDefaultTokenProviders();
+            services.AddHttpClient("Api", c =>
+            {
+                c.BaseAddress = new Uri(Configuration.GetValue<string>("Kestrel:EndPoints:Http:Url"));
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
             services.AddControllersWithViews();
+            
+        }
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] rolesNames = { "Admin", "User", "Operator" };
+            IdentityResult result;
+            foreach (var namesRole in rolesNames)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(namesRole);
+                if (!roleExist)
+                {
+                    result = await roleManager.CreateAsync(new IdentityRole(namesRole));
+                }
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {

@@ -70,6 +70,34 @@ namespace Nascimento.Software.Livraria.Infraestrutura.Processos
               
         }
 
+        public async Task<bool> AtualizarLivroAsync(Livro livro)
+        {
+            try
+            {
+                //AutorId, CategoriaId, Descricao, Id, Nome, QtdePaginas
+                var param = new DynamicParameters();
+                param.Add("QtdePaginas", livro.QtdePaginas);
+                param.Add("Nome", livro.Nome);
+                param.Add("Descricao", livro.Descricao);
+                param.Add("CategoriaId", livro.CategoriaId);
+                param.Add("autorId", livro.AutorId);
+                param.Add("Id", livro.Id);
+                //foto nao pode ser atualizada
+                var query = $@"begin transaction;
+                           UPDATE Livro SET QtdePaginas = @QtdePaginas, Nome = @Nome, Descricao = @Descricao, CategoriaId = @CategoriaId, AutorId = @autorId
+                                                        where Id = @Id;
+                            UPDATE LivroAutor SET AutorId = @autorId where LivroId = @Id;
+                            commit;";
+
+                return await _connection.ExecuteAsync(query, param: param, commandType: System.Data.CommandType.Text).ConfigureAwait(false) > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
         public async Task<bool> DeleteLivroAsync(Livro livro)
         {
             var param = new DynamicParameters();
@@ -81,7 +109,7 @@ namespace Nascimento.Software.Livraria.Infraestrutura.Processos
 
         public async Task<IEnumerable<Livro>> GetLivros()
         {
-            var query = $@"SELECT Id, Nome, Descricao, CategoriaId, AutorId, QtdePaginas, ImagemURL FROM LIVRO C
+            var query = $@"SELECT Id, Nome, Descricao, CategoriaId, F.FotoId, AutorId, QtdePaginas, ImagemURL FROM LIVRO C
                                                         INNER JOIN FOTO F ON C.Id = F.FotoId";
 
             return await _connection.QueryAsync<Livro>(query, commandType: System.Data.CommandType.Text).ConfigureAwait(false);
@@ -91,7 +119,7 @@ namespace Nascimento.Software.Livraria.Infraestrutura.Processos
 
             var param = new DynamicParameters();
             param.Add("LivroId", id);
-            var query = $@"SELECT Id, Nome, Descricao, CategoriaId, AutorId, QtdePaginas, ImagemURL FROM LIVRO C
+            var query = $@"SELECT Id, Nome, Descricao, CategoriaId, AutorId, F.FotoId, QtdePaginas, ImagemURL FROM LIVRO C
                                                         INNER JOIN FOTO F ON C.Id = F.FotoId where ID = @LivroId";
             return await _connection.QueryFirstOrDefaultAsync<Livro>(query, param: param, commandType: System.Data.CommandType.Text).ConfigureAwait(false);
         }

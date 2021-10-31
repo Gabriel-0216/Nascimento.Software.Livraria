@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using Nascimento.Software.Livraria.Servidor.ProcessamentoImagem;
 using Nascimento.Software.Livraria_WebApp.Models;
 using Nascimento.Software.Livraria_WebApp.Models.ViewModels;
@@ -14,21 +17,18 @@ namespace Nascimento.Software.Livraria_WebApp.Controllers
 {
     public class LivroController : Controller
     {
-        private HttpClient _client;
-        public LivroController()
+        private readonly IHttpClientFactory _client;
+        private readonly IConfiguration _config;
+        public LivroController(IHttpClientFactory client, IConfiguration config)
         {
-            _client = new HttpClient();
-            _client.BaseAddress = new Uri("https://localhost:44342/");
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-        }
-        private HttpClient GetClient()
-        {
-            return _client;
+            _client = client;
+            _config = config;
         }
         public async Task<IActionResult> Index()
         {
-            var resposta = await GetClient().GetAsync("api/Livro");
+            var client = _client.CreateClient("Api");
+
+            var resposta = await client.GetAsync("api/Livro");
             if (resposta.IsSuccessStatusCode)
             {
                 var retorno = JsonConvert.DeserializeObject<IEnumerable<LivroViewModel>>(await resposta.Content.ReadAsStringAsync());
@@ -41,7 +41,7 @@ namespace Nascimento.Software.Livraria_WebApp.Controllers
                         listaRetorno.Add(new LivroViewModel()
                         {
                             Id = item.Id,
-                            ImagemUrl = @$"C:\Users\GABRI\source\repos\Nascimento.Software.LivrariaV2\Nascimento.Software.Livraria.Servidor\images\{item.ImagemUrl}", // isso aqui é uma das coisas mais bizarras que já fiz
+                            ImagemUrl = item.ImagemUrl,
                             AutorId = item.AutorId,
                             CategoriaId = item.CategoriaId,
                             FotoId = item.FotoId,
@@ -58,9 +58,12 @@ namespace Nascimento.Software.Livraria_WebApp.Controllers
             }
             return BadRequest();
         }
+
         [HttpGet]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Create()
         {
+
             var livroVm = new LivroViewModel();
             livroVm.autores = await GetAutores();
             livroVm.categorias = await GetCategorias();            
@@ -73,6 +76,8 @@ namespace Nascimento.Software.Livraria_WebApp.Controllers
             {
                 return BadRequest();
             }
+            var client = _client.CreateClient("Api");
+
             var stringImagem = fotoService.SalvarFotoServidor(model.Foto);
             var livroFoto = new LivroFotoModel()
             {
@@ -85,34 +90,106 @@ namespace Nascimento.Software.Livraria_WebApp.Controllers
                 Nome = model.Nome,
                 QtdePaginas = model.QtdePaginas,
             };
-            var resposta = await GetClient().PostAsJsonAsync<LivroFotoModel>("api/Livro", livroFoto);
+            var resposta = await client.PostAsJsonAsync<LivroFotoModel>("api/Livro", livroFoto);
             if (resposta.IsSuccessStatusCode)
             {
                 return RedirectToAction(nameof(Index));
             }
             return BadRequest();
         }
-        private async Task<IEnumerable<Categoria>> GetCategorias()
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
         {
-            var resposta = await GetClient().GetAsync("api/Categoria/GetAll");
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var client = _client.CreateClient("Api");
+            var resposta = await client.GetAsync($"api/Livro/{id}");
             if (resposta.IsSuccessStatusCode)
             {
-                List<Categoria> result = JsonConvert.DeserializeObject<List<Categoria>>(await resposta.Content.ReadAsStringAsync());
+                var retorno = JsonConvert.DeserializeObject<LivroFotoModel>(await resposta.Content.ReadAsStringAsync());
+                if (retorno != null)
+                {
+                    return View(retorno);
+                }
+            }
+            return BadRequest();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var client = _client.CreateClient("Api");
+
+            var resposta = await client.DeleteAsync($"api/Livro?id={id}");
+            if (resposta.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return BadRequest();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var client = _client.CreateClient("Api");
+            var resposta = await client.GetAsync($"api/Livro/{id}");
+            if (resposta.IsSuccessStatusCode)
+            {
+                var retorno = JsonConvert.DeserializeObject<LivroViewModel>(await resposta.Content.ReadAsStringAsync());
+                if (retorno != null)
+                {
+                    retorno.autores = await GetAutores();
+                    retorno.categorias = await GetCategorias();
+                    return View(retorno);
+                }
+            }
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(LivroViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var client = _client.CreateClient("Api");
+            var envio = await client.PutAsJsonAsync<LivroViewModel>("api/Livro/", model);
+            if (envio.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return BadRequest();
+        }
+
+        #region Private methods
+        private async Task<IEnumerable<Categoria>> GetCategorias()
+        {
+            var client = _client.CreateClient("Api");
+            var request = await client.GetAsync("/api/Categoria/GetAll");
+            if (request.IsSuccessStatusCode)
+            {
+                List<Categoria> result = JsonConvert.DeserializeObject<List<Categoria>>(await request.Content.ReadAsStringAsync());
                 return result;
             }
             return null;
         }
         private async Task<IEnumerable<AutorModel>> GetAutores()
         {
-            var resposta = await GetClient().GetAsync("api/Autor/Get");
-            if (resposta.IsSuccessStatusCode)
+            var client = _client.CreateClient("Api");
+            var request = await client.GetAsync("/api/Autor/Get");
+            if (request.IsSuccessStatusCode)
             {
-                List<AutorModel> result = JsonConvert.DeserializeObject<List<AutorModel>>(await resposta.Content.ReadAsStringAsync());
+                List<AutorModel> result = JsonConvert.DeserializeObject<List<AutorModel>>(await request.Content.ReadAsStringAsync());
                 return result;
             }
             return null;
         }
-       
 
+        #endregion
     }
 }

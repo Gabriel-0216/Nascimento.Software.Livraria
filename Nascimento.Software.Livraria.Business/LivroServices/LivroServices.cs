@@ -79,9 +79,7 @@ namespace Nascimento.Software.Livraria.Business.LivroServices
             }
             try
             {
-                await _livroRepositorio.Update(livro);
-                await _fotoRepositorio.Update(foto);
-                await _livroAutorRepositorio.Update(await GetLivroAutor(livro));
+                await _prc_Inserir_Livro.AtualizarLivroAsync(livro);
                 return true;
             }
             catch (Exception)
