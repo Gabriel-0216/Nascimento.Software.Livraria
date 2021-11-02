@@ -1,0 +1,114 @@
+﻿@model Nascimento.Software.Livraria_WebApp.Models.Compra.CompraModel
+
+@{
+    ViewData["Title"] = "Comprar";
+}
+
+<h1>Comprar</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Livro.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Livro.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Livro.QtdePaginas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Livro.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCompra)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Livro.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Livro.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Livro.QtdePaginas)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Livro.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.DataCompra)
+            </td>
+            <td style="text-align: right;">
+                <div class="col-md-4">
+                    <form asp-action="Comprar">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div hidden style="display: none">
+                            <div class="form-group">
+                                <label asp-for="Id" class="control-label"></label>
+                                <input asp-for="Id" class="form-control" />
+                                <span asp-validation-for="Id" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="DataCompra" class="control-label"></label>
+                                <input asp-for="DataCompra" class="form-control" />
+                                <span asp-validation-for="DataCompra" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Livro.Id" class="control-label"></label>
+                                <input asp-for="Livro.Id" class="form-control" />
+                                <span asp-validation-for="Livro.Id" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Livro.Nome" class="control-label"></label>
+                                <input asp-for="Livro.Nome" class="form-control" />
+                                <span asp-validation-for="Livro.Nome" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Livro.Descricao" class="control-label"></label>
+                                <input asp-for="Livro.Descricao" class="form-control" />
+                                <span asp-validation-for="Livro.Descricao" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Livro.CategoriaId" class="control-label"></label>
+                                <input asp-for="Livro.CategoriaId" class="form-control" />
+                                <span asp-validation-for="Livro.CategoriaId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Livro.FotoId" class="control-label"></label>
+                                <input asp-for="Livro.FotoId" class="form-control" />
+                                <span asp-validation-for="Livro.FotoId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Livro.AutorId" class="control-label"></label>
+                                <input asp-for="Livro.AutorId" class="form-control" />
+                                <span asp-validation-for="Livro.AutorId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Livro.QtdePaginas" class="control-label"></label>
+                                <input asp-for="Livro.QtdePaginas" class="form-control" />
+                                <span asp-validation-for="Livro.QtdePaginas" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Livro.ImagemURL" class="control-label"></label>
+                                <input asp-for="Livro.ImagemURL" class="form-control" />
+                                <span asp-validation-for="Livro.ImagemURL" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

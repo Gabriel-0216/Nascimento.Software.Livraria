@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Nascimento.Software.Livraria.Infraestrutura\Nascimento.Software.Livraria.Infraestrutura.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Compra\" />
-  </ItemGroup>
-
 </Project>

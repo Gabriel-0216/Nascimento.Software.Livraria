@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Compra\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
