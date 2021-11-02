@@ -10,7 +10,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nascimento.Software.Livraria.Business\Nascimento.Software.Livraria.Business.csproj" />
+    <ProjectReference Include="..\Nascimento.Software.Livraria.Dominio\Nascimento.Software.Livraria.Dominio.csproj" />
     <ProjectReference Include="..\Nascimento.Software.Livraria.Infraestrutura\Nascimento.Software.Livraria.Infraestrutura.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\Compra\" />
   </ItemGroup>
 
 </Project>

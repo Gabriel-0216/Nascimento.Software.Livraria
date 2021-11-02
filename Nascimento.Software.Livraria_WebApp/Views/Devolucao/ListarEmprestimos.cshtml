@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Nascimento.Software.Livraria_WebApp.Models.Emprestimo.Devolucao.DevolucaoViewModel>
+
+@{
+    ViewData["Title"] = "ListarEmprestimos";
+}
+
+<h1>Meus empréstimos:</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeLivro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataEmprestimo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataDevolucao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Devolvido)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr hidden>
+            @{
+                var statusStyle = "bg-success";
+                if(item.Devolvido == 'N') {
+                    if (DateTime.Now > item.DataDevolucao)
+                    {
+                        statusStyle = "bg-danger";
+                    }
+                    if (DateTime.Now.Equals(item.DataDevolucao))
+                    {
+                        statusStyle = "bg-warning";
+                    }
+                }
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeLivro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataEmprestimo)
+            </td>
+            <td class="@statusStyle">
+                @Html.DisplayFor(modelItem => item.DataDevolucao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Devolvido)
+            </td>
+            <td style="text-align: right">
+               <a asp-action="EmprestimoSelecionado" asp-route-id="@item.Id">Detalhes</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

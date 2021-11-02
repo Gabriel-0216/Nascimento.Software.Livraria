@@ -166,6 +166,25 @@ namespace Nascimento.Software.Livraria_WebApp.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var client = _client.CreateClient("Api");
+            var resposta = await client.GetAsync($"api/Livro/{id}");
+            if (resposta.IsSuccessStatusCode)
+            {
+                var retorno = JsonConvert.DeserializeObject<LivroFotoModel>(await resposta.Content.ReadAsStringAsync());
+                if (retorno != null)
+                {
+                    return View(retorno);
+                }
+            }
+            return BadRequest();
+        }
         #region Private methods
         private async Task<IEnumerable<Categoria>> GetCategorias()
         {
@@ -189,7 +208,7 @@ namespace Nascimento.Software.Livraria_WebApp.Controllers
             }
             return null;
         }
-
         #endregion
     }
+
 }

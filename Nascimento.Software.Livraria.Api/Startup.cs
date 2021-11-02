@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Nascimento.Software.Livraria.Business.EmprestimoService;
 using Nascimento.Software.Livraria.Business.LivroServices;
 using Nascimento.Software.Livraria.Infraestrutura.Repositorio;
 using System;
@@ -29,7 +30,14 @@ namespace Nascimento.Software.Livraria.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<AutorRepositorio>();
+
+
             services.AddSingleton<LivroServices>();
+
+            services.AddSingleton<DevolucaoService>();
+
+            services.AddSingleton<AluguelService>();
+
             services.AddSingleton<CategoriaRepositorio>();
             services.AddCors();
             services.AddControllers();

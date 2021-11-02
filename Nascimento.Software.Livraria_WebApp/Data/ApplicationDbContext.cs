@@ -12,5 +12,7 @@ namespace Nascimento.Software.Livraria_WebApp.Data
             : base(options)
         {
         }
+
+
     }
 }

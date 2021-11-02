@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Nascimento.Software.Livraria_WebApp.Models.LivroFotoModel>
+
+@{
+    ViewData["Title"] = "ListarLivros";
+}
+
+<h1>ListarLivros</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QtdePaginas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagemURL)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QtdePaginas)
+            </td>
+            <td>
+                <img style="height: 150px; width: 150px;" src="~/images/@item.ImagemURL" />
+                
+            </td>
+            <td>
+                <a asp-action="LivroSelecionado" asp-route-id="@item.Id" class="btn btn-primary shadow-lg">Alugar esse livro</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
