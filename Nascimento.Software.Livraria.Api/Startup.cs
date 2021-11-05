@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Nascimento.Software.Livraria.Business.EmprestimoService;
 using Nascimento.Software.Livraria.Business.LivroServices;
+using Nascimento.Software.Livraria.Dominio.Dominios;
+using Nascimento.Software.Livraria.Infraestrutura;
 using Nascimento.Software.Livraria.Infraestrutura.Repositorio;
 using System;
 using System.Collections.Generic;
@@ -29,16 +31,14 @@ namespace Nascimento.Software.Livraria.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<AutorRepositorio>();
+            services.AddScoped<DevolucaoService>();
+            services.AddScoped<AluguelService>();
+            services.AddScoped<LivroServices>();
+ 
+            services.AddScoped<IRepositorio<Autor>, AutorRepositorio>();
+            services.AddScoped<IRepositorio<Categoria>, CategoriaRepositorio>();
 
 
-            services.AddSingleton<LivroServices>();
-
-            services.AddSingleton<DevolucaoService>();
-
-            services.AddSingleton<AluguelService>();
-
-            services.AddSingleton<CategoriaRepositorio>();
             services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>

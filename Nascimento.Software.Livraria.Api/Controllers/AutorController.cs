@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nascimento.Software.Livraria.Dominio.Dominios;
+using Nascimento.Software.Livraria.Infraestrutura;
 using Nascimento.Software.Livraria.Infraestrutura.Repositorio;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,14 @@ namespace Nascimento.Software.Livraria.Api.Controllers
 
         [HttpGet]
         [Route("get")]
-        public async Task<IEnumerable<Autor>> Get([FromServices] AutorRepositorio autorRepositorio)
+        public async Task<IEnumerable<Autor>> Get([FromServices] IRepositorio<Autor> autorRepositorio)
         {
             return await autorRepositorio.GetAll();
         }
 
         [HttpPost]
         [Route("post")]
-        public async Task<ActionResult> Create([FromServices] AutorRepositorio autorRepositorio, Autor model)
+        public async Task<ActionResult> Create([FromServices] IRepositorio<Autor> autorRepositorio, Autor model)
         {
             if (!ModelState.IsValid)
             {
@@ -38,14 +39,14 @@ namespace Nascimento.Software.Livraria.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Autor> GetOne([FromServices] AutorRepositorio autorRepositorio, int id)
+        public async Task<Autor> GetOne([FromServices] IRepositorio<Autor> autorRepositorio, int id)
         {
             return await autorRepositorio.Get(id);
         }
 
         [HttpPut]
         [Route("Update")]
-        public async Task<ActionResult> Update([FromServices] AutorRepositorio autorRepositorio, Autor model)
+        public async Task<ActionResult> Update([FromServices] IRepositorio<Autor> autorRepositorio, Autor model)
         {
             if (!ModelState.IsValid)
             {
@@ -59,7 +60,7 @@ namespace Nascimento.Software.Livraria.Api.Controllers
         }
         [HttpDelete]
         [Route("Delete")]
-        public async Task<IActionResult> Delete([FromServices] AutorRepositorio autorRepositorio, int id)
+        public async Task<IActionResult> Delete([FromServices] IRepositorio<Autor> autorRepositorio, int id)
         {
             var autorRepo = await autorRepositorio.Get(id);
             if(autorRepo == null)

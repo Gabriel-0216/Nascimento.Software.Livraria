@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nascimento.Software.Livraria.Dominio.Dominios;
+using Nascimento.Software.Livraria.Infraestrutura;
 using Nascimento.Software.Livraria.Infraestrutura.Repositorio;
 using System;
 using System.Collections.Generic;
@@ -16,19 +17,19 @@ namespace Nascimento.Software.Livraria.Api.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        public async Task<IEnumerable<Categoria>> Get([FromServices] CategoriaRepositorio categoriaRepositorio)
+        public async Task<IEnumerable<Categoria>> Get([FromServices] IRepositorio<Categoria> categoriaRepositorio)
         {
             return await categoriaRepositorio.GetAll();
         }
         [HttpGet]
         [Route("Get")]
-        public async Task<Categoria> Get([FromServices] CategoriaRepositorio categoriaRepositorio, int id)
+        public async Task<Categoria> Get([FromServices] IRepositorio<Categoria> categoriaRepositorio, int id)
         {
             return await categoriaRepositorio.Get(id);
         }
         [HttpPost]
         [Route("Create")]
-        public async Task<ActionResult> Create([FromServices] CategoriaRepositorio categoriaRepositorio, Categoria model)
+        public async Task<ActionResult> Create([FromServices] IRepositorio<Categoria> categoriaRepositorio, Categoria model)
         {
             if (!ModelState.IsValid)
             {
@@ -42,7 +43,7 @@ namespace Nascimento.Software.Livraria.Api.Controllers
         }
         [HttpPut]
         [Route("Edit")]
-        public async Task<ActionResult> Edit([FromServices] CategoriaRepositorio categoriaRepositorio, Categoria model)
+        public async Task<ActionResult> Edit([FromServices] IRepositorio<Categoria> categoriaRepositorio, Categoria model)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +57,7 @@ namespace Nascimento.Software.Livraria.Api.Controllers
         }
         [HttpDelete]
         [Route("Delete")]
-        public async Task<ActionResult> Delete([FromServices] CategoriaRepositorio categoriaRepositorio, int id)
+        public async Task<ActionResult> Delete([FromServices] IRepositorio<Categoria> categoriaRepositorio, int id)
         {
             var categoria = await categoriaRepositorio.Get(id);
             if (categoria == null)

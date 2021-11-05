@@ -12,34 +12,29 @@ namespace Nascimento.Software.Livraria.Api.Controllers.Compra
     [ApiController]
     public class CompraController : ControllerBase
     {
-
         [HttpPost]
         [Route("RetornarCompras")]
         public async Task<ActionResult> RetornarCompras(Usuario usuario)
         {
             return Ok();
         }
-
         [HttpPost]
         [Route("RegistrarCompra")]
         public async Task<ActionResult> RegistrarCompra(Dominio.Dominios.Compra.Compra compra)
         {
             return Ok();
         }
-
         [HttpPost]
         [Route("EstornarCompra")]
         public async Task<ActionResult> EstornarCompra(Dominio.Dominios.Compra.Compra compra)
         {
             return Ok();
         }
-
         [HttpGet]//admin
         [Route("RetornarComprasTodas")]
         public async Task<ActionResult> RetornarTodasCompras()
         {
             return Ok();
         }
-
     }
 }
