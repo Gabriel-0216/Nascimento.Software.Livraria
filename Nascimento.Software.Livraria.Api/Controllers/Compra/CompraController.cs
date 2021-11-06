@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Nascimento.Software.Livraria.Business.CompraService;
 using Nascimento.Software.Livraria.Dominio.Dominios.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,11 @@ namespace Nascimento.Software.Livraria.Api.Controllers.Compra
     [ApiController]
     public class CompraController : ControllerBase
     {
+        private readonly ICompraService _service;
+        public CompraController(ICompraService service)
+        {
+            _service = service;
+        }
         [HttpPost]
         [Route("RetornarCompras")]
         public async Task<ActionResult> RetornarCompras(Usuario usuario)
@@ -22,7 +28,12 @@ namespace Nascimento.Software.Livraria.Api.Controllers.Compra
         [Route("RegistrarCompra")]
         public async Task<ActionResult> RegistrarCompra(Dominio.Dominios.Compra.Compra compra)
         {
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                if (await _service.Start(compra)) return Ok("Cadastro realizado com sucesso");
+            }
+
+            return BadRequest("Ocorreu um problema");
         }
         [HttpPost]
         [Route("EstornarCompra")]
@@ -34,7 +45,12 @@ namespace Nascimento.Software.Livraria.Api.Controllers.Compra
         [Route("RetornarComprasTodas")]
         public async Task<ActionResult> RetornarTodasCompras()
         {
-            return Ok();
+            var lista = await _service.GetCompras();
+            if (lista != null)
+            {
+                return Ok(lista);
+            }
+            return BadRequest("Ocorreu um erro");
         }
     }
 }

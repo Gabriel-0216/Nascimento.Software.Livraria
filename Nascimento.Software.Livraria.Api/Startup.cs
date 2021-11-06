@@ -7,10 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Nascimento.Software.Livraria.Business.CompraService;
 using Nascimento.Software.Livraria.Business.EmprestimoService;
 using Nascimento.Software.Livraria.Business.LivroServices;
 using Nascimento.Software.Livraria.Dominio.Dominios;
 using Nascimento.Software.Livraria.Infraestrutura;
+using Nascimento.Software.Livraria.Infraestrutura.Compra;
 using Nascimento.Software.Livraria.Infraestrutura.Repositorio;
 using System;
 using System.Collections.Generic;
@@ -34,7 +36,10 @@ namespace Nascimento.Software.Livraria.Api
             services.AddScoped<DevolucaoService>();
             services.AddScoped<AluguelService>();
             services.AddScoped<LivroServices>();
- 
+
+            services.AddScoped<ICompraService, CompraService>();
+            services.AddScoped<processo_compra>();
+
             services.AddScoped<IRepositorio<Autor>, AutorRepositorio>();
             services.AddScoped<IRepositorio<Categoria>, CategoriaRepositorio>();
 

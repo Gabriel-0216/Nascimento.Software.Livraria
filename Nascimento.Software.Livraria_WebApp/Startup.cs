@@ -30,6 +30,7 @@ namespace Nascimento.Software.Livraria_WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<FotoService>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));

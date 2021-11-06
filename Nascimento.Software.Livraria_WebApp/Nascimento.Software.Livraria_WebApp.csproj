@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nascimento.Software.Livraria.Dominio\Nascimento.Software.Livraria.Dominio.csproj" />
     <ProjectReference Include="..\Nascimento.Software.Livraria.Servidor\Nascimento.Software.Livraria.Servidor.csproj" />
   </ItemGroup>
 
